@@ -1,14 +1,215 @@
-<p style="color: green"><%= notice %></p>
+<!DOCTYPE HTML>
+<HTML>
+    <head>
+        <title> Home </title>
+        <style>
+          *{
+              font-family: Arial, Helvetica, sans-serif;
+            }
 
-<h1>Books</h1>
+            header{
+                width: 100%;
+                background: linear-gradient(-105deg, #FF9E00, #9D4EDD, #5A189A);
+            }
 
-<div id="books">
-  <% @books.each do |book| %>
-    <%= render book %>
-    <p>
-      <%= link_to "Show this book", book %>
-    </p>
-  <% end %>
-</div>
+            header .menu{
+                position: fixed;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 40px;
+            }
 
-<%= link_to "New book", new_book_path %>
+            header .menu li{
+                display: inline-block;
+            }
+
+            header .menu li #hello{
+                color: white;
+            }
+
+            header .menu a{
+                color: white;
+                padding: 12px 20px;
+                border-radius: 3px;
+                transition: .6s;
+                text-decoration: none;
+            }
+
+            header .menu a:hover{
+                color: #240046;
+                background-color: #fff;
+            }
+
+            body{
+              background: linear-gradient(-105deg, #FF9E00, #9D4EDD, #5A189A);
+              background-size: 100%;
+              display: flex;
+              align-items: center;
+              flex-direction: column;
+              justify-content: space-between;
+              padding: 0;
+              margin: 0;
+            }
+
+            .title{
+              margin: 20px 0 0 0;
+            }
+
+            h1{
+              color: white;
+              text-align: center;
+              font-family: Arial Black, sans-serif;
+              font-size: 45px;
+            }
+
+            .mainBox{
+              width: 80%;
+              background-color: rgba(255, 255, 255, 0.3);
+              padding: 50px 40px 50px 40px;
+              border-radius: 50px;
+              box-shadow: 20px 30px 40px;
+              margin: 0 0 20px 0;
+            }
+
+            .mainBox .buttom-new{
+              text-align: center;
+              <%# background-color: rgba(90, 24, 154, 0.60); %>
+              background-color: rgba(255,255,255,1);
+              border-radius: 50px;
+              cursor: pointer;
+              padding: 10px 20px;
+              border: 2px solid rgba(90, 24, 154, 0);
+              outline: none;
+              margin: 0 300px 0 300px;
+              transition: background .6s;
+            }
+
+            .buttom-home{
+              text-align: center;
+              background-color: rgba(90, 24, 154, 0.60);
+              border-radius: 50px;
+              cursor: pointer;
+              padding: 10px 20px;
+              border: 2px solid rgba(90, 24, 154, 0);
+              outline: none;
+              margin: 0 450px 20px 450px;
+              transition: background .6s;
+            }
+
+            .mainBox .buttom-new a{
+              color: rgba(90, 24, 154, 1);
+              font-size: 20px;
+              text-decoration: none;
+            }
+
+            .buttom-home a{
+              color: white;
+              font-size: 15px;
+              text-decoration: none;
+            }
+
+            .mainBox .buttom-new:hover{
+              border: 2px solid rgba(90, 24, 154, 0.90);
+              background-color: rgba(255, 255, 255, 0.2);
+            }
+
+            .buttom-home:hover{
+              background-color: rgba(90, 24, 154, 1);
+            }
+
+            .mainBox .grid-container{
+              display: grid;
+              grid-template-columns: auto auto auto;
+              grid-gap: 50px;
+              padding: 10px;
+              justify-content: center;
+            }
+
+            .mainBox .grid-container .grid-item{
+              <%# background-color: rgba(255, 255, 255, 0.3); %>
+              background: linear-gradient(-105deg, rgba(255, 158, 0, 0.7), #9D4EDD, rgba(36, 0, 70, 0.3));
+              margin: 20px 0 20px 0;
+              padding: 30px;
+              border-radius: 20px;
+              color: white;
+            }
+            
+            .mainBox .grid-container .grid-item h2{
+              color: #3C096C;
+            }
+
+            .mainBox .grid-container .grid-item a{
+              text-align: center;
+              background-color: rgba(90, 24, 154, 0.60);
+              border-radius: 50px;
+              cursor: pointer;
+              padding: 10px 20px;
+              border: 3px solid rgba(90, 24, 154, 0);
+              outline: none;
+              margin-top: 10px;
+              text-decoration: none;
+              font-size: 13px;
+              color: white;
+              transition: background .6s;
+            }
+
+            .mainBox .grid-container .grid-item a:hover{
+              background-color: rgba(90, 24, 154, 1);
+            }
+
+        </style>
+    </head>
+
+    <body>
+      <header>
+        <nav class="menu">
+            <ul>
+              <% if user_signed_in? %>
+                <li id="hello" style="color:white"> Olá, <%= current_user.email %> </li>
+                <li> <%= link_to "Logout", destroy_user_session_path, method: :delete %> </li>
+              <% else %>
+                <li> <%= link_to "Sign in", new_user_session_path %> </li>
+                <li> <%= link_to "Sign up", new_user_registration_path %> </li>
+              <% end %>
+            </ul>
+        </nav>
+      </header>
+
+      <div class="title">
+        <h1>Books</h1>
+      </div>
+    
+      <div class="buttom-home"> 
+        <%= link_to "Home", root_path %>
+      </div>
+
+      <div class="mainBox">
+        <div class="grid-container">
+              <% @books.each do |book| %>
+              <div class="grid-item">
+                  <tr>
+                    <td><h2><%= book.name %></h2></td>
+                    <td><p>Autor: <%= book.author %></p></td>
+                    <td><p>Gênero: <%= book.genre %></p></td>
+                    <td><p>Ano de publicação: <%= book.yearpub %></p></td>
+                    <td><p>Resenha: <%= book.review %></p></td>
+                    <td><p>Cadastrado por: <%= book.user.email %></p></td>
+                    <div class="linksBook">
+                      <td><%= link_to "Editar", edit_book_path(book) %></td>
+                      <td><%= link_to "Apagar", book, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>
+                    </div>
+                  </tr>
+                <br/>
+              </div>
+              <% end %>
+        </div>
+        <div class="buttom-new"> 
+          <%= link_to "Novo", new_book_path %>
+        </div>
+      </div>
+      <div>
+      </div>
+    </body>
+</HTML>
