@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <title> Login </title>
+  <style>
+    body{
+      background: linear-gradient(-105deg, #FF9E00, #9D4EDD, #5A189A);
+      background-size: 100% 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 0;
+      margin: 0;
+    }
+    .signInBox{
+      background-color: white;
+      width: 300px;
+      padding: 40px;
+      border-radius: 50px;
+      box-shadow: 20px 30px 40px;
+    }
+
+    .signInBox h1{
+      color: #240046;
+      text-align: center;
+      margin: 10px 0 30px;
+      font-family: Arial Black, sans-serif;
+    }
+    .signInBox .field input{
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      color: gray;
+      letter-spacing: 2px;
+      border: none;
+      border-bottom: 1px solid #240046;
+      margin-bottom: 20px;
+    }
+    
+    .signInBox .field label{
+      color: #240046;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+    }
+
+    .signInBox .actions input{
+      width: 100%;
+      height: 40px;
+      margin-bottom: 20px;
+      border: none;
+      outline: none;
+      color: white;
+      background: linear-gradient(-105deg, #FF9E00, #9D4EDD, #5A189A);
+      padding: 10px 20px;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+
+    .signInBox a{
+      text-decoration: none;
+      align-items: right;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div> </div>
+  <div class="signInBox">
+    <h1>Log in</h1>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password %><br />
+        <%= f.password_field :password, autocomplete: "current-password" %>
+      </div>
+
+      <!-- <% if devise_mapping.rememberable? %>
+        <div class="field" id="remember" >
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+        </div>
+      <% end %> -->
+
+      <div class="actions">
+        <%= f.submit "Log in" %>
+      </div>
+    <% end %>
+
+    <%= link_to "Sign Up", new_user_registration_path %> </br>
+    <%= link_to "Forgot your password?", new_password_path(resource_name) %>
+  </div>
+  <div></div>
+</body>
+</html>

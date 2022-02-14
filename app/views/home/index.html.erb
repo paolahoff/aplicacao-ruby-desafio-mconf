@@ -2,22 +2,106 @@
 <HTML>
     <head>
         <title> Home </title>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            header{
+                width: 100%;
+                height: 100vh;
+                background: linear-gradient(-105deg, #FF9E00, #9D4EDD, #5A189A);
+            }
+            
+            a{
+                text-decoration: none;
+            }
+
+            header .menu{
+                position: fixed;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 40px;
+            }
+
+            header .menu li{
+                display: inline-block;
+            }
+
+            header .menu li #hello{
+                color: white;
+            }
+
+            header .menu a{
+                color: white;
+                padding: 12px 20px;
+                border-radius: 3px;
+                transition: .6s;
+            }
+
+            header .menu a:hover{
+                color: #240046;
+                background-color: #fff;
+            }
+
+            .main{
+                height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+            }
+
+            .main h2{
+                color: white;
+                font-size: 45px;
+            }
+
+            .main #books a{
+                color: white;
+                padding: 12px 30px;
+                display: inline-block;
+                border: 2px solid white;
+                border-radius: 5px;
+                margin-top: 50px;
+                transition: background .6s;
+            }
+
+            .main #books a:hover{
+                color: #9D4EDD;
+                background-color: white;
+            }
+
+        </style> 
     </head>
 
     <body>
-        <% if user_signed_in? %>
-        <ul>
-            <li> <%= link_to "Logout", destroy_user_session_path, method: :delete %> </li>
-        </ul>
-        <% else %>
-        <ul>
-            <li> <%= link_to "Sign in", new_user_session_path %> </li>
-            <li> <%= link_to "Sign up", new_user_registration_path %> </li>
-        </ul>
-        <% end %>
+        <header>
+            <nav class="menu">
+                <a href="" class="logo"> Books Application </a>
 
-        <ul>
-            <li> <%= link_to "Books", books_path%>
-        </ul>
+                <ul>
+                    <% if user_signed_in? %>
+                        <li id="hello" style="color:white"> Olá, <%= current_user.email %> </li>
+                        <li> <%= link_to "Logout", destroy_user_session_path, method: :delete %> </li>
+                    <% else %>
+                        <li> <%= link_to "Sign in", new_user_session_path %> </li>
+                        <li> <%= link_to "Sign up", new_user_registration_path %> </li>
+                    <% end %>
+                </ul>
+            </nav>
+
+            <section class="main">
+                <h2> Listagem de Livros </h2>
+                    <div id="books">
+                        <%= link_to "Books", books_path %>
+                    </div>
+            </section>
+        </header>
     </body>
 </HTML>
